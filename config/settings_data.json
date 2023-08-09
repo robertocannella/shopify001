@@ -1,5 +1,23 @@
 {
-  "current": "Default",
+  "current": {
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "mobile_menu_title": "Roberto",
+          "menu": "main-menu"
+        }
+      },
+      "homepage": {
+        "type": "homepage",
+        "settings": {
+        }
+      }
+    },
+    "content_for_index": [
+
+    ]
+  },
   "presets": {
     "Default": {
     }
