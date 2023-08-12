@@ -1,0 +1,78 @@
+<div class="py-8">
+    {% paginate blog.articles by section.settings.items_per_page %}
+        <h1 class="text-center text-3xl text-gray-600">
+            {{ blog.title | upcase }}
+        </h1>
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {% for article in blog.articles %}
+                    <div class="w-full py-6 px-3">
+                        <div class="bg-white shadow-xl rounded-lg overflow-hidden">
+                            {% if article.image %}
+                                <a href="{{ article.url }}">
+                                    {% comment %} image sizes: large, medium, small, master (original) {% endcomment %}
+                                    <img class="w-full h-80 object-cover" src="{{ article.image | img_url: "large" }}"
+                                         alt="{{ article.image.alt }}">
+                                </a>
+
+                            {% else %}
+                                <a href="{{ article.url }}">
+                                    {{ 'image' | placeholder_svg_tag: "w-full h-80 object-cover bg-gray-100" }}
+                                </a>
+                            {% endif %}
+                            <div class="p-4">
+                                <h1 class="text-xl font-medium my-4">{{ article.title }}</h1>
+
+                                {% if article.excerpt.size > 0 %}
+                                    {% comment %}strip_html = removes all html objects  {% endcomment %}
+                                    <p>{{ article.excerpt | strip_html | truncatewords: 15 }}</p>
+                                {% else %}
+                                    <p>{{ article.content | strip_html | truncatewords: 15 }}</p>
+                                {% endif %}
+                                <a class="font-medium text-blue-600 block my-4"
+                                   style="color: {{ section.settings.read_more_text_color }}"
+                                   href="{{ article.url }}">{{ section.settings.read_more_text }}</a>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="max-w-6xl mx-auto">
+            {% render 'pagination', paginate: paginate %}
+        </div>
+    {% endpaginate %}
+</div>
+
+
+{% schema %}
+{
+  "name": "Template Blog",
+  "settings": [
+    {
+      "type": "range",
+      "id": "items_per_page",
+      "step": 1,
+      "min": 1,
+      "max": 10,
+      "default": 3,
+      "label": "Blogs Per Page"
+    },
+    {
+      "type": "text",
+      "id": "read_more_text",
+      "default": "Read more...",
+      "label": "Read More"
+    },{
+      "type": "color",
+      "id": "read_more_text_color",
+      "label": "Read More Color",
+      "default": "#000000"
+    }
+  ]
+}
+{% endschema %}
