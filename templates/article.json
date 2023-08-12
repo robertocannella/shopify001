@@ -3,13 +3,13 @@
     "template": {
       "type": "template-article",
       "blocks": {
-        "author": {
-          "type": "article_author",
+        "title": {
+          "type": "article_title",
           "settings": {
           }
         },
-        "title": {
-          "type": "article_title",
+        "author": {
+          "type": "article_author",
           "settings": {
           }
         },
@@ -30,15 +30,13 @@
         }
       },
       "block_order": [
-        "author",
         "title",
+        "author",
         "published_date",
         "featured_image",
         "content"
       ],
       "settings": {
-        "enable_author": true,
-        "enable_published_date": true
       }
     }
   },
